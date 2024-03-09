@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://cgkjr4emutb3d"]
+
+[ext_resource type="Texture2D" uid="uid://ccyy1vd2l6fxw" path="res://assets/itemslot.png" id="1_f2fm8"]
+[ext_resource type="Texture2D" uid="uid://5asgxespfr7l" path="res://assets/items.png" id="2_3kgqy"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pxlbp"]
+content_margin_left = 3.0
+content_margin_top = 3.0
+content_margin_right = 3.0
+content_margin_bottom = 3.0
+texture = ExtResource("1_f2fm8")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gt0nw"]
+resource_local_to_scene = true
+atlas = ExtResource("2_3kgqy")
+region = Rect2(0, 0, 8, 8)
+
+[node name="Slot" type="PanelContainer"]
+theme_override_styles/panel = SubResource("StyleBoxTexture_pxlbp")
+
+[node name="Sprite" type="TextureRect" parent="."]
+layout_mode = 2
+texture = SubResource("AtlasTexture_gt0nw")

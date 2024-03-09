@@ -1,0 +1,195 @@
+[gd_scene load_steps=12 format=3 uid="uid://frh3u7j3rgme"]
+
+[ext_resource type="Script" path="res://code/player.gd" id="1_05npk"]
+[ext_resource type="Texture2D" uid="uid://ckpjhf30trmbm" path="res://assets/player.png" id="2_q5i2s"]
+[ext_resource type="FontFile" uid="uid://bhko2jtesye34" path="res://assets/ImprovGold.ttf" id="3_jxqr3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fpx08"]
+size = Vector2(7.9, 7.9)
+
+[sub_resource type="FontVariation" id="FontVariation_m5bub"]
+base_font = ExtResource("3_jxqr3")
+spacing_top = -6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ugk2d"]
+content_margin_left = 9.0
+content_margin_top = 7.0
+content_margin_right = 9.0
+content_margin_bottom = 3.0
+bg_color = Color(0.0431373, 0.176471, 0.113725, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.980392, 0.87451, 0.945098, 1)
+
+[sub_resource type="Animation" id="Animation_obixx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("UI/Margin:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 120)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("UI/Margin:size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(180, 36)]
+}
+
+[sub_resource type="Animation" id="Animation_bhgyd"]
+resource_name = "raise_ui"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UI/Margin:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 120), Vector2(0, 84), Vector2(0, 84)]
+}
+
+[sub_resource type="Animation" id="Animation_yqx38"]
+resource_name = "sit"
+length = 5.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 5.1, 5.2, 5.3, 5.4, 5.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 4), Vector2i(1, 4), Vector2i(0, 4), Vector2i(0, 0), Vector2i(2, 4), Vector2i(3, 4), Vector2i(4, 4)]
+}
+
+[sub_resource type="Animation" id="Animation_asbi1"]
+resource_name = "walk"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame_coords:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 0, 3, 4, 3, 0, 2]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cjw6d"]
+_data = {
+"RESET": SubResource("Animation_obixx"),
+"raise_ui": SubResource("Animation_bhgyd"),
+"sit": SubResource("Animation_yqx38"),
+"walk": SubResource("Animation_asbi1")
+}
+
+[node name="Player" type="CharacterBody2D"]
+motion_mode = 1
+script = ExtResource("1_05npk")
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_fpx08")
+
+[node name="Ray" type="RayCast2D" parent="."]
+target_position = Vector2(0, 16)
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_q5i2s")
+offset = Vector2(0, -6)
+hframes = 5
+vframes = 5
+
+[node name="Camera" type="Camera2D" parent="."]
+offset = Vector2(0, -8)
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Margin" type="MarginContainer" parent="UI"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 120.0
+offset_right = 180.0
+offset_bottom = 156.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 4
+
+[node name="Dialogue" type="Label" parent="UI/Margin"]
+visible = false
+custom_minimum_size = Vector2(0, 28)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.980392, 0.87451, 0.945098, 1)
+theme_override_fonts/font = SubResource("FontVariation_m5bub")
+theme_override_styles/normal = SubResource("StyleBoxFlat_ugk2d")
+autowrap_mode = 2
+clip_text = true
+
+[node name="Inventory" type="HBoxContainer" parent="UI/Margin"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="Background" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="Color" type="ColorRect" parent="Background"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="IdleTimer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
+[node name="Animator" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_cjw6d")
+}
+
+[connection signal="timeout" from="IdleTimer" to="Animator" method="play" binds= [&"sit"]]

@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://bxj2eeqdpdj02"]
+
+[ext_resource type="PackedScene" uid="uid://frh3u7j3rgme" path="res://code/player.tscn" id="1_bqd3s"]
+[ext_resource type="PackedScene" uid="uid://cidqcgyic4fqm" path="res://scenes/home.tscn" id="2_ejfhs"]
+
+[node name="Shell" type="Node2D"]
+y_sort_enabled = true
+
+[node name="World" parent="." instance=ExtResource("2_ejfhs")]
+
+[node name="Player" parent="." instance=ExtResource("1_bqd3s")]
